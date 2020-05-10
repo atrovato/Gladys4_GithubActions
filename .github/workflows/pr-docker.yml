@@ -31,7 +31,7 @@ jobs:
     env:
       # Export environment variables for all stages.
       DOCKER_CLI_EXPERIMENTAL: enabled # for 'docker buildx'
-      DOCKER_USER: vonox
+      DOCKER_USER:  ${{secrets.DOCKER_USER}}
       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       DOCKER_REPO: gladysdev
       DOCKER_PLATFORMS: >
