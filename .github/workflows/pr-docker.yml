@@ -48,7 +48,7 @@ jobs:
       with:
         name: static
     - name: Set up image tag
-        run: |
+      run: |
           set -vx
           # Export environment variable for later stages.
           if echo "$GITHUB_REF" | grep -q '^refs/heads/'; then
