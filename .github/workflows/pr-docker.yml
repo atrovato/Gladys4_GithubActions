@@ -12,13 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        name: Build front for Docker images
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
             node-version: 12.x
       - run: cd front && npm install && npm run build
       - name: Upload build artifact
-        uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v1
         with:
           name: static
           path: front/build
