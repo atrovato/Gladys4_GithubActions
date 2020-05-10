@@ -1,0 +1,96 @@
+{
+  "name": "gladys-front",
+  "scripts": {
+    "start": "per-env",
+    "start:production": "npm run -s serve",
+    "start:development": "npm run -s dev",
+    "build": "cross-env NODE_ENV=production preact build --template src/template.html --no-prerender",
+    "serve": "npm run build && preact serve",
+    "dev": "preact watch -p 1444 --template src/template.html",
+    "eslint": "eslint src --ext .json --ext .js --ext .jsx",
+    "compare-translations": "npm run compare-i18n && npm run compare-device-integrations && npm run compare-communication-integrations && npm run compare-weather-integrations && npm run compare-calendar-integrations",
+    "compare-i18n": "comparejson -e ./src/config/i18n/*.json",
+    "compare-device-integrations": "comparejson -e ./src/config/integrations/device.*.json",
+    "compare-communication-integrations": "comparejson -e ./src/config/integrations/communication.*.json",
+    "compare-weather-integrations": "comparejson -e ./src/config/integrations/weather.*.json",
+    "compare-calendar-integrations": "comparejson -e ./src/config/integrations/calendar.*.json",
+    "prettier-check": "prettier --check '**/*.js' '**/*.jsx' '**/*.json'",
+    "prettier": "prettier --write '**/*.js' '**/*.jsx' '**/*.json'",
+    "test": "jest --coverage"
+  },
+  "devDependencies": {
+    "compare-json": "^0.4.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-config-synacor": "^2.0.2",
+    "eslint-plugin-json": "^1.4.0",
+    "eslint-plugin-preact-i18n": "^1.0.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^21.2.1",
+    "per-env": "^1.0.2",
+    "preact-cli": "^2.2.1",
+    "preact-render-spy": "^1.2.1",
+    "prettier": "^1.17.1"
+  },
+  "dependencies": {
+    "@gladysassistant/gladys-gateway-js": "^3.2.4",
+    "axios": "^0.18.0",
+    "classnames": "^2.2.6",
+    "cropperjs": "^1.5.1",
+    "date-fns": "^2.10.0",
+    "dayjs": "^1.8.14",
+    "debounce": "^1.2.0",
+    "dotenv": "^6.2.0",
+    "get-value": "^3.0.1",
+    "immutability-helper": "^3.0.0",
+    "leaflet": "^1.4.0",
+    "linkstate": "^1.1.1",
+    "moment": "^2.24.0",
+    "preact": "^10.3.2",
+    "preact-cli-plugin-fast-async": "^1.0.1",
+    "preact-i18n": "^2.0.0-preactx.2",
+    "preact-router": "^3.2.1",
+    "qrcode": "^1.4.2",
+    "react-big-calendar": "^0.22.1",
+    "react-datepicker": "^2.13.0",
+    "react-select": "^3.0.8",
+    "react-stripe-elements": "^5.0.1",
+    "set-value": "^3.0.0",
+    "tabler-ui": "0.0.32",
+    "unistore": "^3.2.1",
+    "uuid": "^3.3.2",
+    "vis": "^4.21.0"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "verbose": true,
+    "setupFiles": [
+      "<rootDir>/tests/__mocks__/browserMocks.js"
+    ],
+    "testRegex": "(/(__tests__|tests)/.*|(\\.|/)(test|spec))\\.jsx?$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/tests/__mocks__/*"
+    ],
+    "testURL": "http://localhost:8080",
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tests/__mocks__/fileMock.js",
+      "\\.(css|less|scss)$": "identity-obj-proxy",
+      "^./style$": "identity-obj-proxy",
+      "^preact$": "<rootDir>/node_modules/preact/dist/preact.js",
+      "^react$": "preact/compat",
+      "^react-dom/test-utils$": "preact/test-utils",
+      "^react-dom$": "preact/compat",
+      "^react-addons-css-transition-group$": "preact-css-transition-group"
+    }
+  }
+}
