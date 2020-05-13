@@ -35,7 +35,6 @@ jobs:
       DOCKER_PLATFORMS: >
         linux/amd64
         linux/arm/v7
-        linux/arm64/v8
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -91,3 +90,8 @@ jobs:
             .
         }
         buildx -t "$DOCKER_BASE:$TAG" --target gladys
+    - name: Comment PR
+      uses: thollander/actions-comment-pull-request@master
+      with:
+        message: 'Docker image for PR #${{ PR_NUMBER}} is available on ${{DOCKER_BASE}}:${{TAG}} .'
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
