@@ -44,8 +44,9 @@ jobs:
       with:
         name: static
     - name: Get PR number
-      env:
-        PR_NUMBER: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+      run: |
+          set -vx
+          echo "::set-env name=PR_NUMBER::$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')"
     - name: Set up image tag
       run: |
           set -vx
