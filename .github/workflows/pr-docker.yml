@@ -1,8 +1,6 @@
 name: Gladys Docker images build for PR
 
 on:
-    push:
-      branches: [ master ]
     pull_request:
       branches: [ master ]
 
@@ -45,20 +43,13 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: static
+    - name: Get PR number
+      env:
+        PR_NUMBER: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
     - name: Set up image tag
       run: |
           set -vx
-          # Export environment variable for later stages.
-          if echo "$GITHUB_REF" | grep -q '^refs/heads/'; then
-            # Pushes to (master) branch - deploy 'latest'.
-            echo "::set-env name=TAG::latest"
-          elif echo "$GITHUB_REF" | grep -q '^refs/tags/'; then
-            # Pushes tag - deploy tag name.
-            echo "::set-env name=TAG::${GITHUB_REF/refs\/tags\//}"
-          elif echo "$GITHUB_REF" | grep -q '^refs/pull/'; then
-            # PR tag - deploy Pr number name.
-            echo "::set-env name=TAG::${GITHUB_REF/refs\/pull\//}"
-          fi
+          echo "::set-env name=TAG::PR${PR_NUMBER}"
           echo "::set-env name=DOCKER_BASE::${DOCKER_USER}/${DOCKER_REPO}"
     - name: Install Docker buildx
       run: |
@@ -98,5 +89,4 @@ jobs:
             "$@" \
             .
         }
-        buildx -t "$DOCKER_BASE:$TAG"
-        buildx -t "$DOCKER_BASE:$TAG-gladys" --target gladys
+        buildx -t "$DOCKER_BASE:$TAG" --target gladys
