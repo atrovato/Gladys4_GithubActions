@@ -35,11 +35,9 @@ jobs:
       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       DOCKER_REPO: gladysdev
       DOCKER_PLATFORMS: >
-        linux/386
         linux/amd64
         linux/arm/v7
         linux/arm64/v8
-        linux/ppc64le
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
