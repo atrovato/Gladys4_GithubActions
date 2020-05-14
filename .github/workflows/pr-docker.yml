@@ -91,7 +91,27 @@ jobs:
         }
         buildx -t "$DOCKER_BASE:$TAG" --target gladys
     - name: Comment PR
-      uses: thollander/actions-comment-pull-request@master
+      uses: marocchino/sticky-pull-request-comment@v1.4.0
       with:
-        message: 'Docker image for PR #${{ env.PR_NUMBER }} is available on ${{ env.DOCKER_BASE }}:${{ env.TAG }} .'
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       header: dockercomment
+       message: |
+         Docker image for PR #${{ env.PR_NUMBER }} is available on ${{ env.DOCKER_BASE }}:${{ env.TAG }}
+         
+         You can test your PR on docker:
+         ```bash
+         docker run -d \
+           --restart=always \
+           --privileged \
+           --network=host \
+           --name gladys${{ env.TAG }} \
+           -e NODE_ENV=production \
+           -e SERVER_PORT=80 \
+           -e TZ=Europe/Paris \
+           -e SQLITE_FILE_PATH=/var/lib/gladysassistant/gladys-pr${{ env.TAG }}.db \
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v /var/lib/gladysassistant:/var/lib/gladysassistant \
+           -v /dev:/dev \
+           ${{ env.DOCKER_BASE }}:${{ env.TAG }}
+         ```
+       number: ${{ env.PR_NUMBER }}
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
