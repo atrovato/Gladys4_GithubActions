@@ -7,8 +7,6 @@
 
 <h4 align="center">A privacy-first, open-source home assistant</h4>
 
-
-
 <p align="center">
   <a href="#the-project">The Project</a> •
   <a href="#getting-started">Getting Started</a> •
