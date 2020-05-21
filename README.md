@@ -8,7 +8,7 @@
 <h4 align="center">A privacy-first, open-source home assistant</h4>
 
 <p align="center">
-	
+  
 </p>
 
 <p align="center">
